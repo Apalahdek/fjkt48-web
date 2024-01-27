@@ -1,64 +1,64 @@
-import { Metadata } from "next";
-import { getDataFromAPI } from "@/utils/get-data";
-import PageWrapper from "@/components/wrapper/PageWrapper";
+"use client";
+import { sections } from "./section-item.json";
+import { useState, useEffect } from "react";
 import Carousel from "@/components/carousel";
 import Image from "next/image";
 import Link from "next/link";
+import chevronRightIcon from "@/assets/icons/chevron-right-dark.svg";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Toko",
-  description: ""
-};
+// Shimmer Effect
+import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
+import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
-async function getBannerImage() {
-  const banner = await getDataFromAPI("shop?banner=1");
-  return banner.content.image;
-}
+export default function ShopPage() {
+  const [bannerImage, setBannerImage] = useState("");
+  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
 
-export default async function ShopPage() {
-  const bannerImage = await getBannerImage();
+  useEffect(() => {
+    fetch("/api/v1/shop?banner=1", {
+      cache: "no-store",
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setBannerImage(data.content.image);
+        setSuccessFetchBanner(true);
+      });
+  }, []);
+
   return (
-    <PageWrapper>
+    <div>
       <div className="mb-6">
-        <Link href="">
+        {successFetchBanner ? (
           <Image
             className="w-full object-cover rounded-xl"
             width={500}
             height={500}
             src={bannerImage}
-            alt="banner"
-            priority={true}/>
-        </Link>
+            alt={bannerImage}
+            priority={true}
+          />
+        ) : (
+          <ShimmerBanner />
+        )}
       </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">T-Shirt</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Accessories</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Photopack</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Poster & Calendar</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Book & Stationary</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Birthday T-Shirt PO</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">CD & DVD</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Botol Minum & Termos</h1>
-      </div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Jacket</h1>
-      </div>
+      {sections.map((section, index) => (
+        <div className="mb-6" id={section.id} key={index}>
+          <Link className="flex flex-row" href="">
+            <h1 className="text-3xl font-semibold mb-1.5">{section.title}</h1>
+            <Image
+              width={40}
+              height={40}
+              src={chevronRightIcon}
+              alt={chevronRightIcon}
+              className="mb-1.5"
+            />
+          </Link>
+          <Carousel />
+        </div>
+      ))}
       <div className="mb-8 items-center justify-center">
-        <h5 className="text-center">JKT48 Official Shop</h5>
+        <h5 className="text-center text-gray-500">JKT48 Official Shop</h5>
         <div className="flex flex-row p-2 justify-center">
           <Link href="https://www.tokopedia.com/officialjkt48" target="_blank">
             <Image
@@ -66,7 +66,8 @@ export default async function ShopPage() {
               width={72}
               height={72}
               src="/tokopedia.png"
-              alt="tokopedia"/>
+              alt="tokopedia"
+            />
           </Link>
           <Link href="https://shopee.co.id/officialjkt48" target="_blank">
             <Image
@@ -74,10 +75,11 @@ export default async function ShopPage() {
               width={70}
               height={70}
               src="/shopee.png"
-              alt="shopee"/>
+              alt="shopee"
+            />
           </Link>
         </div>
       </div>
-    </PageWrapper>
+    </div>
   );
 }

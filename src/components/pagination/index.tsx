@@ -1,5 +1,5 @@
-import left  from "@/assets/images/chevron-left.svg";
-import right from "@/assets/images/chevron-right.svg";
+import leftIcon from "@/assets/icons/arrow-left.svg";
+import rightIcon from "@/assets/icons/arrow-right.svg";
 import Image from "next/image";
 
 type PaginationProps = {
@@ -9,35 +9,50 @@ type PaginationProps = {
 };
 
 export default function Pagination(props: PaginationProps) {
-  const prev = () => {
-    if(props.current > 1)
-      props.onPageChange(props.current - 1);
-  };
-  const next = () => {
-    if(props.current < props.total)
-      props.onPageChange(props.current + 1);
-  };
+  function prev() {
+    if (props.current > 1) props.onPageChange(props.current - 1);
+  }
+
+  function next() {
+    if (props.current < props.total) props.onPageChange(props.current + 1);
+  }
+
   return (
-    <div className="backdrop-blur-lg bg-gray-300 py-2 rounded-2xl items-center">
-      <button
-        className="absolute top-0 bottom-0 text-sm bg-red-600 px-4 py-1 rounded-l-2xl text-white"
-        onClick={prev}>
-        <Image
-          src={left}
-          alt="prev"
-          width={24}
-          height={24}/>
-      </button>
-      <h5 className="text-center">{`${props.current}/${props.total}`}</h5>
-      <button
-        className="absolute top-0 bottom-0 right-0 text-sm bg-red-600 px-4 py-1 rounded-r-2xl text-white"
-        onClick={next}>
-        <Image
-          src={right}
-          alt="next"
-          width={24}
-          height={24}/>
-      </button>
+    <div className="flex items-center justify-center py-4 lg:px-0 sm:px-6 px-4">
+      <div className="lg:w-3/5 w-full flex items-center justify-between">
+        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <Image
+            onClick={prev}
+            src={leftIcon}
+            alt="prev"
+            width={24}
+            height={24}
+          />
+          <p onClick={prev} className="text-sm ml-1 font-medium leading-none">
+            Sebelumnya
+          </p>
+        </div>
+        <div className="sm:flex hidden">
+          <p className="text-sm font-light pt-3 px-1">Halaman </p>
+          <p className="text-sm font-medium pt-3 px-1">{props.current}</p>
+          <p className="text-sm font-light pt-3 px-1"> dari </p>
+          <p className="text-sm font-medium pt-3 px-1">{props.total}</p>
+        </div>
+        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <p
+            onClick={next}
+            className="text-sm font-medium text-center whitespace-nowrap mr-1">
+            Selanjutnya
+          </p>
+          <Image
+            onClick={next}
+            src={rightIcon}
+            alt="next"
+            width={24}
+            height={24}
+          />
+        </div>
+      </div>
     </div>
   );
 }

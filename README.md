@@ -56,7 +56,3 @@ The table below gives an overview of the technologies used in this project, as w
 | Vercel          | [Website](https://vercel.com/) - [Docs](https://vercel.com/docs) - [CLI Docs](https://vercel.com/docs/cli)                                                                                                      |
 | Ngrok           | [Website](https://ngrok.com/) - [Docs](https://ngrok.com/docs) - [GitHub](https://github.com/ngrok)                                                                                                             |
 | Swiper          | [Website](https://swiperjs.com/) - [Docs](https://swiperjs.com/get-started) - [GitHub](https://github.com/nolimits4web/swiper)                                                                                  |
-
-## Support
-
-If you like my work, you can [buy me a coffee](https://www.buymeacoffee.com/kudanil) and share your thoughts 🎉 ☕

@@ -1,6 +1,6 @@
 "use client";
 // Import Swiper React components
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 // Import required modules
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import Image from "next/image";
-import Link  from "next/link";
+import Link from "next/link";
 
 type BannerContent = {
   id: string;
@@ -16,24 +16,17 @@ type BannerContent = {
   url: string;
 };
 
-type BannerProps = {
-  status: number;
-  message: string;
-  content: BannerContent[];
-};
-
-export default function Banner(props: BannerProps) {
-  //const swiper = useSwiper();
+export default function Banner(props: { content: BannerContent[] }) {
   return (
     <Swiper
       loop={true}
       effect={"fade"}
       pagination={{
-        clickable: true
+        clickable: true,
       }}
       autoplay={{
         delay: 5000,
-        disableOnInteraction: false
+        disableOnInteraction: false,
       }}
       modules={[Autoplay, EffectFade, Pagination]}
       className="mySwiper">
@@ -46,21 +39,9 @@ export default function Banner(props: BannerProps) {
               height={500}
               alt={banner.image}
               src={banner.image}
-              priority={true}/>
-            <div className="backdrop-blur-lg bg-red-600 bottom-0 py-5 rounded-b-2xl">
-              {/* Not Working :(
-              <button
-                className="absolute bottom-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
-                onClick={() => swiper.slidePrev()}>
-                {"<"}
-              </button>
-              <button
-                className="absolute bottom-0 right-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
-                onClick={() => swiper.slideNext()}>
-                {">"}
-              </button>
-              */}
-            </div>
+              priority={true}
+            />
+            <div className="bg-red-600 bottom-0 py-5 rounded-b-2xl" />
           </Link>
         </SwiperSlide>
       ))}
