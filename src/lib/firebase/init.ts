@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Firebase configuration
 const configuration = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
+  apiKey: "AIzaSyDbIoLFbnFO77aaoxY_xIavJX-AcuugTBM",
+  authDomain: "jkt48-live.firebaseapp.com",
+  projectId: "jkt48-live",
+  storageBucket: "jkt48-live.appspot.com",
+  messagingSenderId: "566192883325",
+  appId: "1:566192883325:web:a26aad3d89da1c5b22d314"
 };
 
 // Initialize Firebase
